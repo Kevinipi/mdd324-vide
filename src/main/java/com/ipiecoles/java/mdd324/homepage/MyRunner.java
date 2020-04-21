@@ -6,6 +6,9 @@ import com.ipiecoles.java.mdd324.homepage.model.CovidInfo;
 import com.ipiecoles.java.mdd324.homepage.model.Key;
 import com.ipiecoles.java.mdd324.homepage.service.CovidService;
 import com.ipiecoles.java.mdd324.homepage.utils.Utils;
+import com.owlike.genson.GenericType;
+import com.owlike.genson.Genson;
+import com.owlike.genson.GensonBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -23,7 +26,9 @@ public class MyRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        //List<KeyApiResponse> test =  Utils.getPageContents(" https://open-covid-19.github.io/data/data_latest.json");
-        //System.out.println(test);
+        Genson genson = new GensonBuilder().useRuntimeType(true).create();
+        final String pageContents = Utils.getPageContents(" https://open-covid-19.github.io/data/data_latest.json");
+        List<KeyApiResponse> covidDataList = genson.deserialize(pageContents, new GenericType<>(){});
+        System.out.println(covidDataList);
     }
 }

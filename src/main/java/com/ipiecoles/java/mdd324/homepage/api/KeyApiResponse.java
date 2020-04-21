@@ -9,7 +9,7 @@ public class KeyApiResponse {
 
     //Create variables for datas covid
     @JsonProperty("Date") //Define type for JSON File
-    private Date date;
+    private String date;
     @JsonProperty("Key")
     private String Key;
     @JsonProperty("CountryCode")
@@ -37,9 +37,9 @@ public class KeyApiResponse {
 
     //Generate Constructor with values
 
-    public KeyApiResponse(Date date, String key, String countryCode, String countryName, String regionCode, String regionName, Double confirmed, Double deaths, Double latitude, Double longitude, Long population) {
+    public KeyApiResponse(String date, String key, String countryCode, String countryName, String regionCode, String regionName, Double confirmed, Double deaths, Double latitude, Double longitude, Long population) {
         this.date = date;
-        this.Key = key;
+        Key = key;
         CountryCode = countryCode;
         CountryName = countryName;
         RegionCode = regionCode;
@@ -51,13 +51,14 @@ public class KeyApiResponse {
         Population = population;
     }
 
+
     //Generate Getters and Setters
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

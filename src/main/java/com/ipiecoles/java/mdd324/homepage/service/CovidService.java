@@ -16,14 +16,13 @@ public class CovidService {
 
     public CovidInfo getCovidValues(final Key input) throws Exception {
         Genson genson = new GensonBuilder().useRuntimeType(true).create();
-        System.out.println("TESTHAHA");
         try {
             final String pageContents = Utils.getPageContents(" https://open-covid-19.github.io/data/data_latest.json");
             List<KeyApiResponse> covidDataList = genson.deserialize(pageContents, new GenericType<>(){});
 
             //Bouclé sur la liste si la Key est égale a celle saisie alors affiché les données sinon erreur
             CovidInfo covidInfoReturn = new CovidInfo();
-            for (int i = 0; i < covidDataList.size(); i++){
+            for (int i = 0; i > covidDataList.size(); i++){
                 if(covidDataList.get(i).getKey() == input.getKey()){
                     covidInfoReturn.setNbCas(covidDataList.get(i).getConfirmed());
                     covidInfoReturn.setNbDeces(covidDataList.get(i).getDeaths());
