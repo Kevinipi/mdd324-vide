@@ -14,9 +14,10 @@ public class CovidInfoController {
     @Autowired
     private CovidService covidService;
 
-    @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public CovidInfo getCovidValues(@RequestBody Key key) throws Exception {
-            return covidService.getCovidValues(key);
+    //@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping
+    public CovidInfo getCovid(@RequestBody Key key) throws Exception {
+        return covidService.getCovidValues(key);
         }
 }
 

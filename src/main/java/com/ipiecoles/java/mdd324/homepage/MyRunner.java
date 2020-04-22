@@ -26,9 +26,5 @@ public class MyRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        Genson genson = new GensonBuilder().useRuntimeType(true).create();
-        final String pageContents = Utils.getPageContents(" https://open-covid-19.github.io/data/data_latest.json");
-        List<KeyApiResponse> covidDataList = genson.deserialize(pageContents, new GenericType<>(){});
-        System.out.println(covidDataList);
     }
 }
