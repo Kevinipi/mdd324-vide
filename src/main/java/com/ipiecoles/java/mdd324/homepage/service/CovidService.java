@@ -16,22 +16,25 @@ public class CovidService {
 
     public CovidInfo getCovidValues(final Key input) throws Exception {
         Genson genson = new GensonBuilder().useRuntimeType(true).create();
+        CovidInfo covidInfoReturn = null;
         try {
             final String pageContents = Utils.getPageContents(" https://open-covid-19.github.io/data/data_latest.json");
-            List<KeyApiResponse> covidDataList = genson.deserialize(pageContents, new GenericType<>(){});
+            List<KeyApiResponse> covidDataList = genson.deserialize(pageContents, new GenericType<List<KeyApiResponse>>(){});
 
             //Bouclé sur la liste si la Key est égale a celle saisie alors affiché les données sinon erreur
-            CovidInfo covidInfoReturn = new CovidInfo();
-            for (int i = 0; i > covidDataList.size(); i++){
-                if(covidDataList.get(i).getKey() == input.getKey()){
+            for (int i = 0; i < covidDataList.size(); i++){
+                if(covidDataList.get(i).getKey().equals(input.getKey())) {
+                    covidInfoReturn = new CovidInfo();
                     covidInfoReturn.setNbCas(covidDataList.get(i).getConfirmed());
                     covidInfoReturn.setNbDeces(covidDataList.get(i).getDeaths());
                     covidInfoReturn.setPays(covidDataList.get(i).getCountryName());
-                }else {
-                    throw new Exception("La clé" + input.getKey() + "n'existe pas");
                 }
             }
-            return covidInfoReturn;
+            if (covidInfoReturn != null) {
+                return covidInfoReturn;
+            }else{
+                throw new Exception("La clé" + input.getKey() + "n'existe pas");
+            }
         }catch (Exception e){
             throw new Exception(e.getMessage());
         }

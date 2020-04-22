@@ -2,7 +2,6 @@ package com.ipiecoles.java.mdd324.homepage.api;
 
 import com.owlike.genson.annotation.JsonProperty;
 
-import java.util.Date;
 import java.util.Objects;
 
 public class KeyApiResponse {
